@@ -209,6 +209,14 @@ body{
   .legend{gap:4px 8px;padding:8px 0}
   .score{font-size:60px}
 }
+@media (max-width:400px){
+  #hud{padding-left:20px;padding-right:8px}
+  .hud-row{gap:6px}
+  .hud-btns{gap:6px}
+  .icon-btn{width:36px;height:38px;font-size:11px}
+  #hAlt{font-size:26px}
+  .hud-alt{padding:5px 7px 3px}
+}
 @media (prefers-reduced-motion:reduce){
   .screen.show .card{animation:none}
   .chip-g.danger{animation:none}
@@ -229,6 +237,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
         <div class="hud-btns">
           <button id="bPause" class="icon-btn" type="button" aria-label="Pause">II</button>
           <button id="bMute" class="icon-btn" type="button" aria-label="Toggle sound">SFX</button>
+          <button id="bMusic" class="icon-btn" type="button" aria-label="Toggle music">MUS</button>
         </div>
       </div>
       <div class="hud-row chips">
@@ -258,7 +267,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
           </ul>
           <div class="warn"><span><b>THE GAS</b> CO2 is heavier than air, so it sits low. It keeps creeping up behind you. Fall into it and you're out.</span></div>
           <div class="controls">
-            <span class="k">DRAG TO MOVE</span><span>← → OR A D</span><span>SIDES WRAP ROUND</span><span>P TO PAUSE</span>
+            <span class="k">DRAG TO MOVE</span><span>← → OR A D</span><span>SIDES WRAP ROUND</span><span>P PAUSE</span><span>M SOUND · N MUSIC</span>
           </div>
           <button id="bStart" class="btn btn-y btn-xl" type="button">PLAY ▲</button>
           <p class="best-line">YOUR BEST: <span id="mBest" class="num">0</span>M</p>
@@ -399,7 +408,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   const hud = $('hud');
   const hAlt = $('hAlt'), hBest = $('hBest'), hBestBox = $('hBestBox'), hSig = $('hSig'), hGap = $('hGap'), hGapChip = $('hGapChip'), hDays = $('hDays');
   const sMenu = $('sMenu'), sPause = $('sPause'), sOver = $('sOver');
-  const bStart = $('bStart'), bPause = $('bPause'), bMute = $('bMute'), bResume = $('bResume'), bRestart = $('bRestart'), bRetry = $('bRetry'), bShare = $('bShare'), bAction = $('bAction');
+  const bStart = $('bStart'), bPause = $('bPause'), bMute = $('bMute'), bMusic = $('bMusic'), bResume = $('bResume'), bRestart = $('bRestart'), bRetry = $('bRetry'), bShare = $('bShare'), bAction = $('bAction');
   const mBest = $('mBest'), mDays = $('mDays');
   const oCode = $('oCode'), oCause = $('overCause'), oAlt = $('oAlt'), oRecord = $('oRecord'), oBest = $('oBest'), oSig = $('oSig'), oRej = $('oRej'), oDays = $('oDays');
 
@@ -498,10 +507,10 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
 
   // o: { f0, f1, dur, slide, type, vol, delay, attack, lp, detune, lfo, lfoDepth }
   function tone(o) {
-    if (muted || !actx) return null;
-    const t0 = actx.currentTime + (o.delay || 0);
+    if (!actx || (o.out ? !musicOn : muted)) return null;
+    const t0 = o.at !== undefined ? o.at : actx.currentTime + (o.delay || 0);
     const osc = actx.createOscillator(), g = actx.createGain();
-    osc.type = o.type || 'square';
+    if (o.wave) osc.setPeriodicWave(o.wave); else osc.type = o.type || 'square';
     osc.frequency.setValueAtTime(o.f0, t0);
     if (o.f1 && o.f1 !== o.f0) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.f1), t0 + (o.slide || o.dur));
     if (o.detune) osc.detune.setValueAtTime(o.detune, t0);
@@ -526,20 +535,20 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     } else {
       osc.connect(g);
     }
-    g.connect(master);
+    g.connect(o.out || master);
     osc.start(t0); osc.stop(t0 + o.dur + 0.05);
     return { osc, g, lfo };
   }
 
   // o: { dur, vol, filter, freq, f1, q, delay, attack }
   function noise(o) {
-    if (muted || !actx) return;
+    if (!actx || (o.out ? !musicOn : muted)) return;
     if (!noiseBuf) {
       noiseBuf = actx.createBuffer(1, Math.floor(actx.sampleRate * 1.2), actx.sampleRate);
       const d = noiseBuf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     }
-    const t0 = actx.currentTime + (o.delay || 0);
+    const t0 = o.at !== undefined ? o.at : actx.currentTime + (o.delay || 0);
     const s = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain();
     s.buffer = noiseBuf;
     f.type = o.filter || 'bandpass';
@@ -550,7 +559,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     g.gain.setValueAtTime(0.0001, t0);
     g.gain.linearRampToValueAtTime(o.vol, t0 + a);
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + o.dur);
-    s.connect(f); f.connect(g); g.connect(master);
+    s.connect(f); f.connect(g); g.connect(o.out || master);
     s.start(t0, Math.random() * 0.4); s.stop(t0 + o.dur + 0.05);
   }
 
@@ -672,6 +681,146 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       }
     },
   };
+
+  /* ---------- background music: original 8-bit loop, sequenced live ---------- */
+  // Each bar is 8 eighth-notes. Note names like "E5", "-" holds the previous note, "." is a rest.
+  const SONG = {
+    // chord per bar: [root midi (octave 3), intervals]
+    chords: [
+      [57, [0, 3, 7]], [53, [0, 4, 7]], [48, [0, 4, 7]], [55, [0, 4, 7]],
+      [57, [0, 3, 7]], [53, [0, 4, 7]], [55, [0, 4, 7]], [52, [0, 4, 7]],
+      [53, [0, 4, 7]], [55, [0, 4, 7]], [57, [0, 3, 7]], [57, [0, 3, 7]],
+      [53, [0, 4, 7]], [55, [0, 4, 7]], [48, [0, 4, 7]], [52, [0, 4, 7]],
+    ],
+    lead: [
+      'E5 - A4 C5 E5 - D5 C5',
+      'D5 - C5 A4 F4 - A4 C5',
+      'E5 - G5 - E5 D5 C5 -',
+      'D5 - B4 - G4 - . .',
+      'E5 - A4 C5 E5 - G5 E5',
+      'F5 - E5 D5 C5 - A4 C5',
+      'B4 - D5 - G5 - F5 D5',
+      'E5 - - - G#4 - B4 -',
+      'A5 - G5 F5 E5 - C5 -',
+      'B4 - D5 G5 - F5 E5 D5',
+      'C5 - E5 A5 - G5 E5 -',
+      'A4 - . C5 E5 - D5 C5',
+      'F5 - E5 F5 A5 - G5 F5',
+      'G5 - F5 G5 B5 - A5 G5',
+      'E5 - G5 - C6 - - -',
+      'B5 - G#5 - E5 - D5 B4',
+    ],
+  };
+  const NOTE_BASE = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const midiHz = (n) => 440 * Math.pow(2, (n - 69) / 12);
+  const LEAD = (() => {
+    // flatten into 16th-note steps: { midi, len (in 16ths) }
+    const tokens = SONG.lead.join(' ').split(/\s+/);
+    const steps = new Array(tokens.length * 2).fill(null);
+    for (let i = 0; i < tokens.length; i++) {
+      const m = /^([A-G])(#?)(\d)$/.exec(tokens[i]);
+      if (!m) continue;
+      let len = 1;
+      while (tokens[i + len] === '-') len++;
+      steps[i * 2] = { midi: 12 * (Number(m[3]) + 1) + NOTE_BASE[m[1]] + (m[2] ? 1 : 0), len: len * 2 };
+    }
+    return steps;
+  })();
+  const SONG_STEPS = LEAD.length; // 16 bars x 16 steps
+  const MUSIC_VOL = 0.3;
+
+  let musicOn = store.get('wirralup_music', '1') === '1';
+  let musicBus = null, pulse25 = null, pulse12 = null;
+  const seq = { playing: false, step: 0, next: 0, timer: 0 };
+
+  function pulseWave(duty) {
+    const n = 32, real = new Float32Array(n), imag = new Float32Array(n);
+    for (let k = 1; k < n; k++) real[k] = (2 / (k * Math.PI)) * Math.sin(k * Math.PI * duty);
+    return actx.createPeriodicWave(real, imag);
+  }
+  function ensureMusicBus() {
+    if (!actx || musicBus) return;
+    musicBus = actx.createGain();
+    musicBus.gain.value = 0.0001;
+    musicBus.connect(master);
+    pulse25 = pulseWave(0.25);
+    pulse12 = pulseWave(0.125);
+  }
+
+  function scheduleStep(step, t, stepDur) {
+    const bar = Math.floor(step / 16) % SONG.chords.length;
+    const s16 = step % 16;
+    const [root, iv] = SONG.chords[bar];
+    const m = meters();
+    const layer = m >= 150 ? 2 : m >= 50 ? 1 : 0;
+
+    // lead melody
+    const n = LEAD[step % SONG_STEPS];
+    if (n) {
+      const dur = n.len * stepDur * 0.95;
+      tone({ wave: pulse25, f0: midiHz(n.midi), dur, vol: 0.05, attack: 0.008, out: musicBus, at: t, lp: 5000, lfo: dur > 0.3 ? 5.5 : 0, lfoDepth: midiHz(n.midi) * 0.006 });
+    }
+
+    // triangle bass, eighth notes
+    if (s16 % 2 === 0) {
+      const pat = [0, 0, 12, 0, 0, 12, 7, 12];
+      tone({ type: 'triangle', f0: midiHz(root - 12 + pat[s16 / 2]), dur: stepDur * 1.7, vol: 0.16, attack: 0.004, out: musicBus, at: t });
+    }
+
+    // arpeggio from 50 m
+    if (layer >= 1) {
+      const arp = [0, iv[1], iv[2], 12];
+      tone({ wave: pulse12, f0: midiHz(root + 12 + arp[s16 % 4]), dur: stepDur * 0.8, vol: 0.022, out: musicBus, at: t, lp: 4000 });
+    }
+
+    // drums: kick + hats from the start, snare from 50 m, busier from 150 m
+    const kick = s16 === 0 || s16 === 8 || (layer >= 2 && (s16 === 10 || (bar % 4 === 3 && s16 === 14)));
+    if (kick) tone({ type: 'sine', f0: 150, f1: 42, slide: 0.1, dur: 0.14, vol: 0.32, out: musicBus, at: t });
+    if (layer >= 1 && (s16 === 4 || s16 === 12)) {
+      noise({ dur: 0.11, vol: 0.13, filter: 'bandpass', freq: 1900, q: 0.9, out: musicBus, at: t });
+      tone({ type: 'triangle', f0: 210, f1: 120, dur: 0.07, vol: 0.08, out: musicBus, at: t });
+    }
+    const hat = layer >= 2 ? true : s16 % 2 === 0;
+    if (hat) noise({ dur: 0.03, vol: s16 % 4 === 2 ? 0.05 : 0.025, filter: 'highpass', freq: 7500, out: musicBus, at: t });
+  }
+
+  function musicTick() {
+    if (!seq.playing || !actx) return;
+    while (seq.next < actx.currentTime + 0.12) {
+      const bpm = 128 + Math.min(20, meters() / 25);   // speeds up a little as you climb
+      const stepDur = 60 / bpm / 4;
+      scheduleStep(seq.step, seq.next, stepDur);
+      seq.next += stepDur;
+      seq.step = (seq.step + 1) % SONG_STEPS;
+    }
+  }
+  function musicStart(fromTop) {
+    if (!musicOn || !actx) return;
+    ensureMusicBus();
+    if (fromTop) seq.step = 0;
+    const now = actx.currentTime;
+    musicBus.gain.cancelScheduledValues(now);
+    musicBus.gain.setValueAtTime(Math.max(0.0001, musicBus.gain.value), now);
+    musicBus.gain.exponentialRampToValueAtTime(MUSIC_VOL, now + 0.25);
+    if (!seq.playing) {
+      seq.playing = true;
+      seq.next = now + 0.06;
+      clearInterval(seq.timer);
+      seq.timer = setInterval(musicTick, 25);
+      musicTick();
+    }
+  }
+  function musicStop(fade) {
+    if (!seq.playing) return;
+    seq.playing = false;
+    clearInterval(seq.timer);
+    if (actx && musicBus) {
+      const now = actx.currentTime;
+      musicBus.gain.cancelScheduledValues(now);
+      musicBus.gain.setValueAtTime(Math.max(0.0001, musicBus.gain.value), now);
+      musicBus.gain.exponentialRampToValueAtTime(0.0001, now + (fade || 0.08));
+    }
+  }
 
   /* ---------- game state ---------- */
   let state = 'menu'; // menu | play | paused | over
@@ -1045,6 +1194,8 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     sfx.start();
     overToken++;
     reset();
+    musicStop(0.02);
+    musicStart(true);
     state = 'play';
     showScreen(null);
     hud.classList.remove('off');
@@ -1056,6 +1207,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     if (state !== 'play') return;
     state = 'paused';
     stopSiren();
+    musicStop(0.15);
     sfx.click();
     keys.left = keys.right = false;
     drag.id = null; drag.accum = 0;
@@ -1067,6 +1219,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     ensureAudio();
     state = 'play';
     sfx.click();
+    musicStart(false);
     drag.accum = 0;
     showScreen(null);
     blurActive();
@@ -1081,6 +1234,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     keys.left = keys.right = false;
     drag.id = null;
     burst(player.x, player.y + PH / 2, 30, [C.Y, C.K, C.Y, C.R], 440, 140, 3, 7, 0.5, 1.1);
+    musicStop(0.3);
     sfx.death(cause);
     if (navigator.vibrate) { try { navigator.vibrate([60, 40, 120]); } catch (e) { /* unsupported */ } }
 
@@ -1617,6 +1771,18 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     refreshMute();
     if (muted) stopSiren(); else { ensureAudio(); sfx.click(); }
   }
+  function refreshMusic() {
+    bMusic.classList.toggle('muted', !musicOn);
+    bMusic.setAttribute('aria-pressed', String(!musicOn));
+    bMusic.setAttribute('aria-label', musicOn ? 'Music on. Turn music off' : 'Music off. Turn music on');
+  }
+  function toggleMusic() {
+    musicOn = !musicOn;
+    store.set('wirralup_music', musicOn ? '1' : '0');
+    refreshMusic();
+    if (!musicOn) musicStop(0.1);
+    else { ensureAudio(); if (state === 'play') musicStart(false); }
+  }
 
   /* ---------- share ---------- */
   function flashShare(txt) {
@@ -1675,6 +1841,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       return;
     }
     if (k === 'm' || k === 'M') toggleMute();
+    if (k === 'n' || k === 'N') toggleMusic();
   });
   window.addEventListener('keyup', (e) => {
     const k = e.key;
@@ -1710,6 +1877,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   bResume.addEventListener('click', resume);
   bPause.addEventListener('click', () => { if (state === 'play') pause(); else if (state === 'paused') resume(); });
   bMute.addEventListener('click', () => { toggleMute(); if (state === 'play') blurActive(); });
+  bMusic.addEventListener('click', () => { toggleMusic(); if (state === 'play') blurActive(); });
   bShare.addEventListener('click', share);
 
   document.addEventListener('visibilitychange', () => { if (document.hidden && state === 'play') pause(); });
@@ -1752,6 +1920,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   mBest.textContent = String(best);
   refreshDeadline();
   refreshMute();
+  refreshMusic();
   setInterval(refreshDeadline, 60000);
   resize();
   reset();
