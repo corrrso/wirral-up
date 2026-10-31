@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="description" content="WIRRAL UP // AACCS ARCADE — climb above the CO2 plume, reject the lobby, collect signatures. Consultation closes 18 December 2026.">
-<title>WIRRAL UP // AACCS ARCADE</title>
+<meta name="description" content="Wirral Up: a free climbing game from Action Against CCS. Jump up the pipes, stay ahead of the gas, dodge the lobbyists. The consultation closes on 18 December 2026.">
+<title>Wirral Up · AACCS Arcade</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080808'/%3E%3Crect x='6' y='6' width='20' height='20' fill='%23FFD100' stroke='%23080808' stroke-width='2'/%3E%3Crect x='9' y='12' width='14' height='5' fill='%23080808'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,50 +233,50 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       </div>
       <div class="hud-row chips">
         <span class="chip chip-y">SIGS <b id="hSig" class="num">000</b></span>
-        <span class="chip chip-g" id="hGapChip">CO2 GAP <b id="hGap" class="num">00</b>M</span>
-        <span class="chip chip-k"><b id="hDays">T-00D</b></span>
+        <span class="chip chip-g" id="hGapChip">GAS <b><span id="hGap" class="num">00</span>M</b> BELOW</span>
+        <span class="chip chip-k"><b id="hDays">00 DAYS LEFT</b></span>
       </div>
     </header>
 
     <section id="sMenu" class="screen show" aria-labelledby="menuTitle">
       <div class="card">
-        <div class="card-top"><span>AACCS ARCADE</span><span>FIELD OP 01</span></div>
+        <div class="card-top"><span>AACCS ARCADE</span><span>GAME 01</span></div>
         <div class="stripe"></div>
         <div class="card-body">
-          <p class="kicker">ACTION AGAINST CCS PRESENTS</p>
+          <p class="kicker">A GAME FROM ACTION AGAINST CCS</p>
           <h1 class="title" id="menuTitle"><span class="t1">WIRRAL</span><span class="t2">UP<i>▲</i></span></h1>
-          <p class="lede">The plume is rising. Climb the steel, <b>reject the lobby</b>, collect signatures, and never sink back into the gas.</p>
+          <p class="lede">Jump up the pipes and keep ahead of the gas. Grab signatures on the way, <b>stay away from the lobbyists</b>, and see how high you can get.</p>
           <ul class="legend">
-            <li><i class="ic ic-steel"></i><span><b>STEEL PIPE</b>auto-bounce</span></li>
-            <li><i class="ic ic-grid"></i><span><b>GRID</b>moving deck</span></li>
-            <li><i class="ic ic-rust"></i><span><b>CORRODED</b>breaks on use</span></li>
-            <li><i class="ic ic-valve"></i><span><b>VALVE</b>super launch</span></li>
-            <li><i class="ic ic-lob"></i><span><b>LOBBYIST</b>stomp or dodge</span></li>
-            <li><i class="ic ic-fund">£</i><span><b>LOBBY FUND</b>lethal, dodge</span></li>
-            <li><i class="ic ic-sig">✓</i><span><b>SIGNATURE</b>collect</span></li>
-            <li><i class="ic ic-mega"></i><span><b>MEGAPHONE</b>boost + shield</span></li>
+            <li><i class="ic ic-steel"></i><span><b>STEEL PIPE</b>bounces you up</span></li>
+            <li><i class="ic ic-grid"></i><span><b>GRID</b>moves sideways</span></li>
+            <li><i class="ic ic-rust"></i><span><b>RUSTY PIPE</b>breaks once</span></li>
+            <li><i class="ic ic-valve"></i><span><b>VALVE</b>sends you flying</span></li>
+            <li><i class="ic ic-lob"></i><span><b>LOBBYIST</b>jump on them</span></li>
+            <li><i class="ic ic-fund">£</i><span><b>LOBBY CASH</b>don't touch it</span></li>
+            <li><i class="ic ic-sig">✓</i><span><b>SIGNATURE</b>grab them</span></li>
+            <li><i class="ic ic-mega"></i><span><b>MEGAPHONE</b>rockets you up</span></li>
           </ul>
-          <div class="warn"><span><b>CO2 PLUME</b> // dense gas grounds at low altitude and keeps rising. Touch it and the op is over.</span></div>
+          <div class="warn"><span><b>THE GAS</b> CO2 is heavier than air, so it sits low. It keeps creeping up behind you. Fall into it and you're out.</span></div>
           <div class="controls">
-            <span class="k">DRAG ⟷</span><span>← →</span><span>A / D</span><span>EDGES WRAP</span><span>P PAUSE</span>
+            <span class="k">DRAG TO MOVE</span><span>← → OR A D</span><span>SIDES WRAP ROUND</span><span>P TO PAUSE</span>
           </div>
-          <button id="bStart" class="btn btn-y btn-xl" type="button">DEPLOY ▲</button>
-          <p class="best-line">PERSONAL BEST // <span id="mBest" class="num">0</span>M</p>
+          <button id="bStart" class="btn btn-y btn-xl" type="button">PLAY ▲</button>
+          <p class="best-line">YOUR BEST: <span id="mBest" class="num">0</span>M</p>
         </div>
-        <div class="card-foot"><span>CONSULTATION CLOSES 18.12.2026</span><span id="mDays">T-00 DAYS</span></div>
+        <div class="card-foot"><span>CONSULTATION CLOSES 18 DEC 2026</span><span id="mDays">00 DAYS LEFT</span></div>
       </div>
     </section>
 
     <section id="sPause" class="screen" hidden aria-label="Paused">
       <div class="card">
-        <div class="card-top"><span>OP ON HOLD</span><span>STANDBY</span></div>
+        <div class="card-top"><span>AACCS ARCADE</span><span>PAUSED</span></div>
         <div class="stripe"></div>
         <div class="card-body">
           <p class="pause-title">PAUSED</p>
-          <p class="kicker">THE PLUME WAITS. SO DO WE.</p>
+          <p class="kicker">TAP RESUME WHEN YOU'RE READY.</p>
           <div class="btn-row">
-            <button id="bResume" class="btn btn-y" type="button">RESUME ▲</button>
-            <button id="bRestart" class="btn btn-w" type="button">RESTART</button>
+            <button id="bResume" class="btn btn-y" type="button">RESUME</button>
+            <button id="bRestart" class="btn btn-w" type="button">START AGAIN</button>
           </div>
         </div>
       </div>
@@ -284,25 +284,25 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
 
     <section id="sOver" class="screen" hidden aria-labelledby="overCause">
       <div class="card">
-        <div class="card-top red"><span>OP TERMINATED</span><span id="oCode">ERR-CO2</span></div>
+        <div class="card-top red"><span>GAME OVER</span><span id="oCode">GASSED</span></div>
         <div class="stripe"></div>
         <div class="card-body">
-          <p class="cause" id="overCause">ASPHYXIATED IN THE CO2 PLUME</p>
+          <p class="cause" id="overCause">THE GAS CAUGHT UP WITH YOU</p>
           <div class="score"><span id="oAlt" class="num">0</span><small>M</small></div>
-          <p id="oRecord" class="record" hidden>★ NEW PERSONAL BEST</p>
+          <p id="oRecord" class="record" hidden>★ NEW BEST</p>
           <div class="stats">
             <div><span>BEST</span><b id="oBest" class="num">0</b></div>
             <div><span>SIGNATURES</span><b id="oSig" class="num">0</b></div>
-            <div><span>LOBBY REJECTED</span><b id="oRej" class="num">0</b></div>
+            <div><span>LOBBYISTS BOUNCED</span><b id="oRej" class="num">0</b></div>
           </div>
           <div class="btn-row">
-            <button id="bRetry" class="btn btn-y" type="button">REDEPLOY ▲</button>
+            <button id="bRetry" class="btn btn-y" type="button">PLAY AGAIN</button>
             <button id="bShare" class="btn btn-w" type="button">SHARE</button>
           </div>
           <div class="mobilise">
-            <p class="mob-k">THE GAME ENDS. THE CONSULTATION DOESN'T.</p>
-            <p class="mob-t">Have your say before <b>18 DECEMBER 2026</b>. <span id="oDays"></span></p>
-            <a id="bAction" class="btn btn-y" href="#" target="_blank" rel="noopener" hidden>RESPOND NOW →</a>
+            <p class="mob-k">Now have your say for real.</p>
+            <p class="mob-t">The consultation closes on <b>18 December 2026</b><span id="oDays"></span>. If you live on the Wirral, get your response in before then, and pass the game on to someone who should too.</p>
+            <a id="bAction" class="btn btn-y" href="#" target="_blank" rel="noopener" hidden>RESPOND TO THE CONSULTATION</a>
           </div>
         </div>
       </div>
@@ -354,20 +354,20 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   const OFFS = [0, -W, W];
 
   const SLOGANS = [
-    'NOT IN OUR AIR',
-    'COMMUNITIES OVER LOBBIES',
-    'HAVE YOUR SAY // 18.12.2026',
-    'ORGANISE. OBJECT. OUTLAST.',
-    'NO BACKROOM DEALS',
-    'THE PLUME IS RISING',
-    'WIRRAL IS NOT A DUMP',
-    'EVERY SIGNATURE COUNTS',
+    'NO TO CCS ON THE WIRRAL',
+    'KEEP GOING',
+    'RESPOND BY 18 DECEMBER',
+    'TELL YOUR NEIGHBOURS',
+    'NOT BAD AT ALL',
+    'IT\'S OUR AIR',
+    'STILL GOING? NICE',
+    'SHARE THIS WITH A MATE',
   ];
 
   const CAUSES = {
-    co2:      { text: 'ASPHYXIATED IN THE CO2 PLUME', code: 'ERR-CO2' },
-    lobbyist: { text: 'INTERCEPTED BY A LOBBYIST',    code: 'ERR-LBY' },
-    fund:     { text: 'BOUGHT OUT BY LOBBY FUNDS',    code: 'ERR-£££' },
+    co2:      { text: 'THE GAS CAUGHT UP WITH YOU', code: 'GASSED' },
+    lobbyist: { text: 'A LOBBYIST GOT HOLD OF YOU', code: 'CAUGHT' },
+    fund:     { text: 'YOU TOOK THE LOBBY MONEY',  code: 'BOUGHT' },
   };
 
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -472,51 +472,205 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   }
 
   /* ---------- audio (procedural, no files) ---------- */
-  let actx = null;
+  let actx = null, master = null, noiseBuf = null, siren = null;
   let muted = store.get('wirralup_muted', '0') === '1';
-  let noiseBuf = null;
   function ensureAudio() {
     if (!actx) {
-      try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { actx = null; }
+      try {
+        actx = new (window.AudioContext || window.webkitAudioContext)();
+        const comp = actx.createDynamicsCompressor();
+        comp.threshold.value = -16;
+        comp.knee.value = 12;
+        comp.ratio.value = 4;
+        comp.attack.value = 0.003;
+        comp.release.value = 0.15;
+        master = actx.createGain();
+        master.gain.value = 0.85;
+        master.connect(comp);
+        comp.connect(actx.destination);
+        // iOS/Safari unlock: play one silent sample inside the user gesture
+        const b = actx.createBuffer(1, 1, 22050), src = actx.createBufferSource();
+        src.buffer = b; src.connect(actx.destination); src.start(0);
+      } catch (e) { actx = null; master = null; }
     }
     if (actx && actx.state === 'suspended') actx.resume().catch(() => {});
   }
-  function tone(f0, f1, dur, type, vol, delay) {
-    if (muted || !actx) return;
-    const now = actx.currentTime + (delay || 0);
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.type = type;
-    o.frequency.setValueAtTime(f0, now);
-    o.frequency.exponentialRampToValueAtTime(Math.max(30, f1), now + dur);
-    g.gain.setValueAtTime(vol, now);
-    g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-    o.connect(g); g.connect(actx.destination);
-    o.start(now); o.stop(now + dur + 0.03);
+
+  // o: { f0, f1, dur, slide, type, vol, delay, attack, lp, detune, lfo, lfoDepth }
+  function tone(o) {
+    if (muted || !actx) return null;
+    const t0 = actx.currentTime + (o.delay || 0);
+    const osc = actx.createOscillator(), g = actx.createGain();
+    osc.type = o.type || 'square';
+    osc.frequency.setValueAtTime(o.f0, t0);
+    if (o.f1 && o.f1 !== o.f0) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.f1), t0 + (o.slide || o.dur));
+    if (o.detune) osc.detune.setValueAtTime(o.detune, t0);
+    const a = o.attack || 0.004;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(o.vol, t0 + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + o.dur);
+    let lfo = null;
+    if (o.lfo) {
+      lfo = actx.createOscillator();
+      const lg = actx.createGain();
+      lfo.frequency.setValueAtTime(o.lfo, t0);
+      lg.gain.setValueAtTime(o.lfoDepth || 20, t0);
+      lfo.connect(lg); lg.connect(osc.frequency);
+      lfo.start(t0); lfo.stop(t0 + o.dur + 0.05);
+    }
+    if (o.lp) {
+      const f = actx.createBiquadFilter();
+      f.type = 'lowpass';
+      f.frequency.setValueAtTime(o.lp, t0);
+      osc.connect(f); f.connect(g);
+    } else {
+      osc.connect(g);
+    }
+    g.connect(master);
+    osc.start(t0); osc.stop(t0 + o.dur + 0.05);
+    return { osc, g, lfo };
   }
-  function noise(dur, vol) {
+
+  // o: { dur, vol, filter, freq, f1, q, delay, attack }
+  function noise(o) {
     if (muted || !actx) return;
     if (!noiseBuf) {
-      noiseBuf = actx.createBuffer(1, Math.floor(actx.sampleRate * 0.6), actx.sampleRate);
+      noiseBuf = actx.createBuffer(1, Math.floor(actx.sampleRate * 1.2), actx.sampleRate);
       const d = noiseBuf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     }
-    const now = actx.currentTime;
-    const s = actx.createBufferSource(), g = actx.createGain();
+    const t0 = actx.currentTime + (o.delay || 0);
+    const s = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain();
     s.buffer = noiseBuf;
-    g.gain.setValueAtTime(vol, now);
-    g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-    s.connect(g); g.connect(actx.destination);
-    s.start(now); s.stop(now + dur + 0.02);
+    f.type = o.filter || 'bandpass';
+    f.frequency.setValueAtTime(o.freq || 1000, t0);
+    if (o.f1) f.frequency.exponentialRampToValueAtTime(o.f1, t0 + o.dur);
+    f.Q.setValueAtTime(o.q || 1, t0);
+    const a = o.attack || 0.003;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(o.vol, t0 + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + o.dur);
+    s.connect(f); f.connect(g); g.connect(master);
+    s.start(t0, Math.random() * 0.4); s.stop(t0 + o.dur + 0.05);
   }
+
+  function stopSiren() {
+    if (!siren || !actx) { siren = null; return; }
+    const now = actx.currentTime;
+    try {
+      siren.g.gain.cancelScheduledValues(now);
+      siren.g.gain.setValueAtTime(Math.max(0.0001, siren.g.gain.value), now);
+      siren.g.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+      siren.osc.stop(now + 0.08);
+      if (siren.lfo) siren.lfo.stop(now + 0.08);
+    } catch (e) { /* already stopped */ }
+    siren = null;
+  }
+
   const sfx = {
-    bounce(m) { const k = Math.min(m, 800); tone(200 + k * 0.35, 420 + k * 0.45, 0.09, 'triangle', 0.05); },
-    spring() { tone(170, 950, 0.24, 'square', 0.035); },
-    crack() { noise(0.14, 0.09); tone(140, 70, 0.12, 'square', 0.03); },
-    sig() { tone(880, 1320, 0.07, 'square', 0.025); },
-    stomp() { tone(180, 55, 0.16, 'square', 0.06); noise(0.06, 0.05); },
-    mega() { tone(260, 1250, 0.55, 'sawtooth', 0.035); },
-    milestone() { tone(660, 660, 0.07, 'square', 0.03); tone(990, 990, 0.12, 'square', 0.03, 0.08); },
-    death() { tone(440, 45, 0.65, 'sawtooth', 0.07); noise(0.35, 0.1); },
+    // every normal landing: springy "boing" + foot thump + a surface-specific layer
+    jump(m, surface) {
+      const k = 1 + Math.min(m, 900) / 1500;           // pitch creeps up as you climb
+      const j = 1 + (Math.random() - 0.5) * 0.08;      // slight variation so it never drones
+      tone({ type: 'square', f0: 170 * k * j, f1: 560 * k * j, slide: 0.09, dur: 0.14, vol: 0.075, lp: 2400 });
+      tone({ type: 'sine', f0: 160, f1: 55, dur: 0.09, vol: 0.22 });
+      if (surface === 'steel') {
+        tone({ type: 'triangle', f0: 1760 * j, f1: 1700 * j, dur: 0.16, vol: 0.04, delay: 0.005 });
+        tone({ type: 'sine', f0: 2640 * j, dur: 0.1, vol: 0.02, delay: 0.005 });
+      } else if (surface === 'mover') {
+        tone({ type: 'square', f0: 640, f1: 610, dur: 0.07, vol: 0.035, lp: 3200 });
+        tone({ type: 'square', f0: 960, f1: 930, dur: 0.07, vol: 0.03, delay: 0.04, lp: 3200 });
+        noise({ dur: 0.05, vol: 0.06, filter: 'highpass', freq: 3000 });
+      } else if (surface === 'ground') {
+        noise({ dur: 0.1, vol: 0.12, filter: 'lowpass', freq: 500 });
+      }
+    },
+    // valve: big rising launch with a metallic ring and a hiss of released pressure
+    spring() {
+      tone({ type: 'sine', f0: 130, f1: 45, dur: 0.14, vol: 0.25 });
+      tone({ type: 'square', f0: 140, f1: 1200, slide: 0.32, dur: 0.38, vol: 0.075, lp: 3000 });
+      tone({ type: 'triangle', f0: 280, f1: 2300, slide: 0.36, dur: 0.42, vol: 0.06, lfo: 22, lfoDepth: 40 });
+      tone({ type: 'sine', f0: 2490, f1: 2470, dur: 0.45, vol: 0.025, delay: 0.06 });
+      noise({ dur: 0.5, vol: 0.12, filter: 'bandpass', freq: 900, f1: 5000, q: 1.4 });
+    },
+    // rusty pipe: sharp snap, grinding crunch, a small weak hop, then the bits clanking away
+    crack() {
+      noise({ dur: 0.07, vol: 0.32, filter: 'highpass', freq: 2500 });
+      noise({ dur: 0.38, vol: 0.24, filter: 'bandpass', freq: 650, f1: 140, q: 2.5, delay: 0.015 });
+      tone({ type: 'sawtooth', f0: 210, f1: 50, dur: 0.34, vol: 0.08, lp: 900, delay: 0.015 });
+      tone({ type: 'square', f0: 150, f1: 300, slide: 0.08, dur: 0.1, vol: 0.05, lp: 1400 });
+      tone({ type: 'square', f0: 95, f1: 55, dur: 0.12, vol: 0.07, lp: 700, delay: 0.2 });
+      tone({ type: 'square', f0: 120, f1: 70, dur: 0.1, vol: 0.05, lp: 700, delay: 0.33 });
+    },
+    sig() {
+      tone({ type: 'square', f0: 988, dur: 0.07, vol: 0.045, lp: 4500 });
+      tone({ type: 'square', f0: 1319, dur: 0.12, vol: 0.045, lp: 4500, delay: 0.06 });
+      noise({ dur: 0.05, vol: 0.04, filter: 'highpass', freq: 6000 });
+    },
+    // landing on a lobbyist: thump, then a deflating "wah-wah"
+    stomp() {
+      tone({ type: 'sine', f0: 210, f1: 45, dur: 0.18, vol: 0.28 });
+      noise({ dur: 0.08, vol: 0.16, filter: 'bandpass', freq: 900 });
+      tone({ type: 'square', f0: 440, f1: 400, dur: 0.13, vol: 0.05, lp: 1800, delay: 0.07 });
+      tone({ type: 'square', f0: 330, f1: 220, dur: 0.22, vol: 0.05, lp: 1800, delay: 0.19, lfo: 9, lfoDepth: 14 });
+    },
+    // megaphone hit something while boosting
+    blast() {
+      noise({ dur: 0.25, vol: 0.2, filter: 'bandpass', freq: 400, f1: 2400, q: 0.8 });
+      tone({ type: 'sine', f0: 180, f1: 40, dur: 0.2, vol: 0.22 });
+    },
+    // megaphone pickup: whoosh + a siren that lasts as long as the boost
+    mega() {
+      stopSiren();
+      noise({ dur: 0.6, vol: 0.14, filter: 'bandpass', freq: 500, f1: 4000, q: 0.9 });
+      tone({ type: 'square', f0: 220, f1: 880, slide: 0.25, dur: 0.3, vol: 0.06, lp: 2500 });
+      siren = tone({ type: 'sawtooth', f0: 640, f1: 760, slide: BOOST_T, dur: BOOST_T, vol: 0.045, attack: 0.05, lp: 2200, lfo: 5, lfoDepth: 110, delay: 0.05 });
+    },
+    milestone() {
+      [523, 659, 784].forEach((f, i) => tone({ type: 'square', f0: f, dur: 0.1, vol: 0.045, lp: 3500, delay: i * 0.07 }));
+    },
+    record() {
+      [523, 659, 784].forEach((f, i) => tone({ type: 'square', f0: f, dur: 0.09, vol: 0.05, lp: 3800, delay: i * 0.08 }));
+      tone({ type: 'square', f0: 1047, dur: 0.38, vol: 0.05, lp: 3800, delay: 0.24, lfo: 7, lfoDepth: 12 });
+      tone({ type: 'triangle', f0: 523, dur: 0.38, vol: 0.05, delay: 0.24 });
+    },
+    // quiet warning pip while the gas is close
+    alarm() {
+      tone({ type: 'square', f0: 880, f1: 860, dur: 0.07, vol: 0.028, lp: 2600 });
+    },
+    start() {
+      tone({ type: 'square', f0: 392, dur: 0.08, vol: 0.05, lp: 3000 });
+      tone({ type: 'square', f0: 784, dur: 0.14, vol: 0.05, lp: 3000, delay: 0.08 });
+    },
+    click() {
+      tone({ type: 'square', f0: 700, f1: 500, dur: 0.04, vol: 0.03, lp: 3000 });
+    },
+    death(cause) {
+      stopSiren();
+      if (cause === 'lobbyist') {
+        // grabbed: a heavy stamp, then a sad trombone
+        tone({ type: 'sine', f0: 140, f1: 40, dur: 0.25, vol: 0.3 });
+        noise({ dur: 0.12, vol: 0.2, filter: 'lowpass', freq: 1200 });
+        [[392, 370], [370, 349], [349, 262]].forEach((p, i) => tone({
+          type: 'sawtooth', f0: p[0], f1: p[1], dur: i === 2 ? 0.6 : 0.24, vol: 0.06, lp: 1500,
+          delay: 0.2 + i * 0.26, lfo: i === 2 ? 6 : 0, lfoDepth: 10,
+        }));
+      } else if (cause === 'fund') {
+        // bought off: cash-register "ka-ching", then everything drops
+        noise({ dur: 0.05, vol: 0.2, filter: 'highpass', freq: 3000 });
+        tone({ type: 'sine', f0: 2093, dur: 0.5, vol: 0.06, delay: 0.06 });
+        tone({ type: 'sine', f0: 2637, dur: 0.6, vol: 0.06, delay: 0.1 });
+        tone({ type: 'sawtooth', f0: 440, f1: 45, dur: 0.7, vol: 0.06, lp: 1200, delay: 0.3 });
+      } else {
+        // gassed: muffled hiss closing in, a choking slide down and a few bubbles
+        noise({ dur: 1.0, vol: 0.22, filter: 'lowpass', freq: 2200, f1: 180 });
+        tone({ type: 'sawtooth', f0: 330, f1: 40, dur: 0.95, vol: 0.08, lp: 700 });
+        for (let i = 0; i < 5; i++) {
+          const f = 300 + Math.random() * 500;
+          tone({ type: 'sine', f0: f, f1: f * 1.8, dur: 0.06, vol: 0.06, delay: 0.15 + i * 0.12 + Math.random() * 0.05 });
+        }
+      }
+    },
   };
 
   /* ---------- game state ---------- */
@@ -529,7 +683,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   let stats = { sigs: 0, rejected: 0 };
   let best = parseInt(store.get('wirralup_best', '0'), 10) || 0;
   let runBest = best;
-  let lastMilestone = 0, recordPopped = false, cleanupT = 0;
+  let lastMilestone = 0, recordPopped = false, cleanupT = 0, alarmT = 0;
   let overToken = 0, overReadyAt = Infinity, lastScore = 0;
 
   const meters = () => Math.max(0, Math.floor((maxY - GROUND) / PX_M));
@@ -549,7 +703,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     gen = { y: GROUND, lastThreat: GROUND, lastPower: GROUND };
     stats = { sigs: 0, rejected: 0 };
     runBest = best;
-    lastMilestone = 0; recordPopped = false; cleanupT = 0;
+    lastMilestone = 0; recordPopped = false; cleanupT = 0; alarmT = 0;
     drag.accum = 0; drag.id = null;
     genUpTo(camY + viewH + 260);
   }
@@ -648,7 +802,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       player.vy = RUST_V;
       p.broken = true; p.fallV = 60;
       burst(p.x + p.w / 2, p.y, 12, [C.R, C.K, C.RUST_D], 200, 80, 2, 5, 0.3, 0.7);
-      pop('CORRODED', p.x + p.w / 2, p.y + 20, C.R, C.W);
+      pop('RUSTY!', p.x + p.w / 2, p.y + 20, C.R, C.W);
       sfx.crack();
       return;
     }
@@ -664,11 +818,11 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       player.vy = SPRING_V;
       p.springT = 0.25;
       burst(player.x, p.y, 14, [C.Y, C.K], 260, 140, 2, 5, 0.3, 0.6);
-      pop('PRESSURE VALVE', player.x, p.y + 40, C.Y, C.K);
+      pop('WHOOSH', player.x, p.y + 40, C.Y, C.K);
       sfx.spring();
     } else {
       player.vy = JUMP_V;
-      if (!demo) sfx.bounce(m);
+      if (!demo) sfx.jump(m, p.type);
     }
     burst(player.x, p.y, 5, [C.K, C.K, C.W], 120, 60, 2, 4, 0.2, 0.4);
   }
@@ -689,7 +843,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       sfx.sig();
     } else {
       player.boost = BOOST_T;
-      pop('MEGAPHONE // MOBILISED', it.x, it.y + 50, C.Y, C.K);
+      pop('MEGAPHONE!', it.x, it.y + 50, C.Y, C.K);
       burst(it.x, it.y + 10, 18, [C.Y, C.K, C.R], 320, 100, 3, 6, 0.4, 0.8);
       sfx.mega();
       if (navigator.vibrate) { try { navigator.vibrate(30); } catch (e) { /* unsupported */ } }
@@ -772,10 +926,10 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
         }
         if (hitPlayer(th.x, th.y, th.w, th.h)) {
           if (player.boost > 0) {
-            knock(th, 'BLASTED ASIDE');
-            sfx.stomp();
+            knock(th, 'OUT THE WAY!');
+            sfx.blast();
           } else if (th.kind === 'lobbyist' && player.vy < 0 && prevY >= th.y + th.h * 0.5) {
-            knock(th, 'LOBBYIST REJECTED');
+            knock(th, 'LOBBYIST BOUNCED');
             player.vy = STOMP_V;
             player.squash = 1;
             stats.rejected++;
@@ -811,7 +965,15 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       }
       if (!recordPopped && runBest > 0 && m > runBest) {
         recordPopped = true;
-        pop('NEW PERSONAL BEST', W / 2, player.y + 100, C.Y, C.K);
+        sfx.record();
+        pop('NEW BEST!', W / 2, player.y + 100, C.Y, C.K);
+      }
+
+      if (player.y - hazardY < 6 * PX_M) {
+        alarmT -= dt;
+        if (alarmT <= 0) { sfx.alarm(); alarmT = 0.45; }
+      } else {
+        alarmT = 0;
       }
 
       if (Math.random() < dt * 10) {
@@ -879,6 +1041,8 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
 
   function startGame() {
     ensureAudio();
+    stopSiren();
+    sfx.start();
     overToken++;
     reset();
     state = 'play';
@@ -891,6 +1055,8 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   function pause() {
     if (state !== 'play') return;
     state = 'paused';
+    stopSiren();
+    sfx.click();
     keys.left = keys.right = false;
     drag.id = null; drag.accum = 0;
     showScreen(sPause);
@@ -900,6 +1066,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     if (state !== 'paused') return;
     ensureAudio();
     state = 'play';
+    sfx.click();
     drag.accum = 0;
     showScreen(null);
     blurActive();
@@ -914,7 +1081,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     keys.left = keys.right = false;
     drag.id = null;
     burst(player.x, player.y + PH / 2, 30, [C.Y, C.K, C.Y, C.R], 440, 140, 3, 7, 0.5, 1.1);
-    sfx.death();
+    sfx.death(cause);
     if (navigator.vibrate) { try { navigator.vibrate([60, 40, 120]); } catch (e) { /* unsupported */ } }
 
     const m = meters();
@@ -931,7 +1098,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     oRej.textContent = String(stats.rejected);
     mBest.textContent = String(best);
     const dl = daysLeft();
-    oDays.textContent = dl < 0 ? 'The consultation window has now closed.' : (dl === 1 ? 'One day left.' : dl + ' days left.');
+    oDays.textContent = dl < 0 ? ' (it has now closed)' : (dl === 1 ? ' (that\'s tomorrow)' : ' (' + dl + ' days from now)');
 
     overReadyAt = Infinity;
     const token = ++overToken;
@@ -1006,7 +1173,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
         ctx.setLineDash([4, 4]);
         ctx.beginPath(); ctx.moveTo(14, y); ctx.lineTo(W, y); ctx.stroke();
         ctx.setLineDash([]);
-        chip('PB ' + runBest + 'M', W / 2, y, C.R, C.W, 'center', `800 10px ${F_MONO}`);
+        chip('YOUR BEST ' + runBest + 'M', W / 2, y, C.R, C.W, 'center', `800 10px ${F_MONO}`);
       }
     }
   }
@@ -1040,7 +1207,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     ctx.font = `800 10px ${F_MONO}`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.fillText('VENT STACK // 10M', 0, 0);
+    ctx.fillText('VENT STACK  10M', 0, 0);
     ctx.restore();
   }
 
@@ -1069,9 +1236,9 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       ctx.font = `800 10px ${F_MONO}`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText('WIRRAL // GROUND LEVEL // 0M', 24, Y + 26);
+      ctx.fillText('THE WIRRAL  GROUND LEVEL', 24, Y + 26);
       ctx.fillStyle = C.Y;
-      ctx.fillText('AACCS FIELD OP 01', 24, Y + 42);
+      ctx.fillText('ACTION AGAINST CCS', 24, Y + 42);
       return;
     }
     if (Y < -40 || Y > viewH + 40) return;
@@ -1225,7 +1392,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     }
     ctx.restore();
     if (!th.dead) {
-      const label = th.kind === 'lobbyist' ? 'LOBBYIST' : 'LOBBY FUND';
+      const label = th.kind === 'lobbyist' ? 'LOBBYIST' : 'LOBBY CASH';
       chip(label, X, B - th.h - 14, C.K, th.kind === 'lobbyist' ? C.R : C.Y, 'center', `800 8px ${F_MONO}`, 'rgba(8,8,8,0.25)');
     }
   }
@@ -1294,7 +1461,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   }
 
   const wave = (x) => Math.sin(x * 0.035 + time * 2.2) * 5 + Math.sin(x * 0.09 - time * 3.1) * 2.5;
-  const WARN = '▼ DENSE CO2 // LOW-ALTITUDE GROUNDING // DO NOT DESCEND   ';
+  const WARN = 'CO2  ·  HEAVIER THAN AIR  ·  DON\'T FALL IN  ·  ';
 
   function drawHazard() {
     const top = sy(hazardY);
@@ -1399,9 +1566,9 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
       ctx.translate((Math.random() - 0.5) * m, (Math.random() - 0.5) * m);
     }
     drawBackdrop();
-    drawMarkers();
     drawStack();
     for (let i = 0; i < platforms.length; i++) drawPlatform(platforms[i]);
+    drawMarkers();
     for (let i = 0; i < items.length; i++) drawItem(items[i]);
     for (let i = 0; i < threats.length; i++) drawThreat(threats[i]);
     if (!player.dead) drawPlayer();
@@ -1436,8 +1603,8 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   }
   function refreshDeadline() {
     const d = daysLeft();
-    hDays.textContent = d < 0 ? 'CLOSED' : 'T-' + pad(d, 2) + 'D';
-    mDays.textContent = d < 0 ? 'CLOSED' : 'T-' + pad(d, 2) + ' DAYS';
+    hDays.textContent = d < 0 ? 'CONSULTATION CLOSED' : d + (d === 1 ? ' DAY LEFT' : ' DAYS LEFT');
+    mDays.textContent = d < 0 ? 'NOW CLOSED' : d + (d === 1 ? ' DAY LEFT' : ' DAYS LEFT');
   }
   function refreshMute() {
     bMute.classList.toggle('muted', muted);
@@ -1448,7 +1615,7 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
     muted = !muted;
     store.set('wirralup_muted', muted ? '1' : '0');
     refreshMute();
-    if (!muted) { ensureAudio(); sfx.sig(); }
+    if (muted) stopSiren(); else { ensureAudio(); sfx.click(); }
   }
 
   /* ---------- share ---------- */
@@ -1458,10 +1625,10 @@ noscript{position:fixed;inset:0;display:flex;align-items:center;justify-content:
   }
   async function share() {
     const url = /^https?:/.test(location.protocol) ? location.href.split('#')[0] : '';
-    const text = `I climbed ${lastScore}M above the CO2 plume in WIRRAL UP // AACCS ARCADE and collected ${stats.sigs} signatures. The consultation closes 18 Dec 2026. Have your say.`;
+    const text = `I got to ${lastScore}m in Wirral Up and picked up ${stats.sigs} signature${stats.sigs === 1 ? '' : 's'} on the way. Have a go, then have your say: the CCS consultation closes on 18 December 2026.`;
     if (navigator.share) {
       try {
-        const data = { title: 'WIRRAL UP // AACCS ARCADE', text };
+        const data = { title: 'Wirral Up', text };
         if (url) data.url = url;
         await navigator.share(data);
         return;
